@@ -1,9 +1,10 @@
 
 
-ACTUAL NOTES
+## Actual Important Stuff!!!
 
 Client values are evironmental variables loaded that you can add in yourself with a .env.local file - in which you can refer to https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables
 
+## Introduction
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
