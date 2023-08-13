@@ -2,7 +2,14 @@
 
 ## Actual Important Stuff!!!
 
-Client values are evironmental variables loaded that you can add in yourself with a .env.local file - in which you can refer to https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables
+Client ID and Secret are evironmental variables that are kept in the .env.local file - in which you can refer to https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables
+
+Current Environmental Variables
+- CLIENT_ID
+- CLIENT_SECRET
+- REDIRECT_URI
+- UPLOADTHING_SECRET
+- UPLOADTHING_ID
 
 ## Introduction
 
