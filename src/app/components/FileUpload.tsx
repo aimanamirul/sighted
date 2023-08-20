@@ -4,7 +4,7 @@ import { UploadButton } from "../util/uploadthing";
 
 export default function FileUpload() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <>
       <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
@@ -17,6 +17,6 @@ export default function FileUpload() {
           alert(`ERROR! ${error.message}`);
         }}
       />
-    </main>
+    </>
   );
 }

@@ -1,7 +1,46 @@
+'use client'
+
 import Image from 'next/image'
 
+import { useEffect, useState } from 'react';
+import FileUpload from './components/FileUpload';
+import { loginURI, getTokenFromUrl } from './util/spotify';
+import SpotifyWebApi from 'spotify-web-api-js';
+
+import "@uploadthing/react/styles.css";
+
 export default function Home() {
-  console.log(process.env.CLIENT_ID)
+  const spotifyAPi = new SpotifyWebApi();
+  const [accessToken, setAccessToken] = useState('');
+
+  const Login = <a
+    href={loginURI}
+    className="group rounded-lg border border-transparent p-3 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <h2 className={`mb-3 text-xl font-semibold`}>
+      Login to Spotify{' '}
+      <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+        -&gt;
+      </span>
+    </h2>
+    <p className={`m-0 max-w-[30ch] text-xs opacity-50`}>
+      Authenticate your Spotify account to use Sighted
+    </p>
+  </a>
+    ;
+
+  useEffect(() => {
+    const token = getTokenFromUrl().access_token;
+    if (token) {
+      spotifyAPi.setAccessToken(token);
+      setAccessToken(token);
+      spotifyAPi.getMe().then(user => {
+        console.log(user);
+      })
+    }
+  }, [])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-12">
@@ -25,22 +64,9 @@ export default function Home() {
 
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-3 lg:text-left">
-        <a
-          href="#"
-          className="group rounded-lg border border-transparent p-3 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-xl font-semibold`}>
-            Login to Spotify{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-xs opacity-50`}>
-            Authenticate your Spotify account to use Sighted
-          </p>
-        </a>
+
+        {accessToken ? '' : Login}
+
         <a
           href="#"
           className="group rounded-lg border border-transparent p-3 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
@@ -73,7 +99,9 @@ export default function Home() {
             Placeholder for now
           </p>
         </a>
-
+        <div className="group rounded-lg border border-transparent p-3 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
+          <FileUpload />
+        </div>
 
       </div>
     </main>
