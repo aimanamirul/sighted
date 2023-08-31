@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import FileUpload from './components/FileUpload';
 import { loginURI, getTokenFromUrl } from './util/spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
+import KonvaClient from './KonvaClient';
 
 import "@uploadthing/react/styles.css";
 
@@ -42,6 +43,7 @@ export default function Home() {
     }
   }, [])
 
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-12">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -58,7 +60,7 @@ export default function Home() {
 
       <div className="w-full h-[65vh] mb-3 flex justify-center before:absolute">
         <div className="w-1/5 h-full border rounded-2xl border-solid border-gray-50">
-
+          <KonvaClient />
         </div>
       </div>
 
