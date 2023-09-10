@@ -1,7 +1,8 @@
 import './globals.css'
-import { Inter, Montserrat } from 'next/font/google'
+import { Inter, Montserrat, Rubik } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
+const rubik = Rubik({ subsets: ['latin'] })
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -16,7 +17,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${montserrat.variable}`}>{children}</body>
+      <body className={`${rubik.className} ${montserrat.variable}`}>{children}</body>
     </html>
   )
 }

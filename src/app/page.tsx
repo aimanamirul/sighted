@@ -13,6 +13,7 @@ import "@uploadthing/react/styles.css";
 export default function Home() {
   const spotifyAPi = new SpotifyWebApi();
   const [accessToken, setAccessToken] = useState('');
+  const [songs, setSongs] = useState([]);
 
   const Login = <a
     href={loginURI}
@@ -40,8 +41,28 @@ export default function Home() {
       spotifyAPi.getMe().then(user => {
         console.log(user);
       })
+
+
     }
   }, [])
+
+  function handleSearchChange(e) {
+    let searchText = e.target.value;
+    const token = getTokenFromUrl().access_token;
+
+    if (!searchText) { setSongs([]); return; }
+
+    if (token) {
+      spotifyAPi.searchTracks(`artist: ${searchText}`, { limit: 10 }).then(
+        function (data) {
+          setSongs(data.tracks.items);
+        },
+        function (err) {
+          console.error(err);
+        }
+      );
+    }
+  }
 
 
   return (
@@ -85,22 +106,22 @@ export default function Home() {
             View the edits you've made here.
           </p>
         </a>
-        <a
-          href="#"
+        <div
           className="group rounded-lg border border-transparent p-3 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
         >
-          <h2 className={`mb-3 text-xl font-semibold`}>
-            idk what to put here{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-xs opacity-50`}>
-            Placeholder for now
-          </p>
-        </a>
+          <input
+            id="song_search"
+            name="song_search"
+            placeholder="Search for songs here!"
+            onChange={handleSearchChange}
+            required={true}
+            className="w-full py-1 text-sm font-bold bg-slate-900 outline-none resize-none border-transparent focus:border-transparent focus:ring-0" type="text" />
+          <ul>
+            {songs.map(song => {
+              return (<li key={song.id}>{song.artists[0].name} - {song.name}</li>)
+            })}
+          </ul>
+        </div>
         <div className="group rounded-lg border border-transparent p-3 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
           <FileUpload />
         </div>

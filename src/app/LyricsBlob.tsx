@@ -9,11 +9,20 @@ export default function LyricsBlob(props) {
     let textContent = props.text;
 
     return (
-        <Group draggable>
+        <Group draggable
+            onMouseEnter={e => {
+                const container = e.target.getStage().container();
+                container.style.cursor = "pointer";
+            }}
+            onMouseLeave={e => {
+                const container = e.target.getStage().container();
+                container.style.cursor = "default";
+            }}
+        >
             <Rect
                 x={coords.x}
                 y={coords.y}
-                width={100}
+                width={150}
                 height={100}
                 fill="red"
                 shadowBlur={10}

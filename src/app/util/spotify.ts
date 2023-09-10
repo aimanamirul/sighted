@@ -29,6 +29,5 @@ export const getTokenFromUrl = () : tokenObj => {
         return initial
     }, {});
 
-    console.log(tokenObj)
     return tokenObj;
 }
